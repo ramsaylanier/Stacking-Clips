@@ -1,0 +1,54 @@
+{
+  "Ollie": {
+    "type": "air",
+    "score": 10
+  },
+  "Kickflip": {
+    "type": "air",
+    "score": 75
+  },
+  "Heelflip": {
+    "type": "air",
+    "score": 75
+  },
+  "Shuv-it": {
+    "type": "air",
+    "score": 25
+  },
+  "180": {
+    "type": "air",
+    "score": 25
+  },
+  "360": {
+    "type": "air",
+    "score": 100
+  },
+  "NoseSlide": {
+    "type": "slide",
+    "score": 75
+  },
+  "TailSlide": {
+    "type": "slide",
+    "score": 75
+  },
+  "BoardSlide": {
+    "type": "slide",
+    "score": 50
+  },
+  "LipSlide": {
+    "type": "slide",
+    "score": 75
+  },
+  "Nosegrind": {
+    "type": "grind",
+    "score": 75
+  },
+  "5-0": {
+    "type": "grind",
+    "score": 75
+  },
+  "50-50": {
+    "type": "grind",
+    "score": 50
+  }
+}

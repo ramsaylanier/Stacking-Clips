@@ -1,0 +1,26 @@
+{
+  "A": {
+    "tricks": {
+      "air": 9,
+      "slide": 5,
+      "grind": 4
+    },
+    "bonus": []
+  },
+  "B": {
+    "tricks": {
+      "air": 3,
+      "slide": 8,
+      "grind": 7
+    },
+    "bonus": []
+  },
+  "C": {
+    "tricks": {
+      "air": 6,
+      "slide": 6,
+      "grind": 6
+    },
+    "bonus": []
+  }
+}

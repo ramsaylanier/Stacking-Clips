@@ -1,0 +1,49 @@
+{
+  "Carlsbad Gap": {
+    "features": [
+      "Gap"
+    ],
+    "difficulty": 6
+  },
+  "El Toro": {
+    "features": [
+      "Handrail",
+      "Gap"
+    ],
+    "difficulty": 9
+  },
+  "Wallenberg": {
+    "features": [
+      "Handrail",
+      "Gap"
+    ],
+    "difficulty": 8
+  },
+  "MACBA": {
+    "features": [
+      "Ledge",
+      "Gap"
+    ],
+    "difficulty": 3
+  },
+  "Lyon 25": {
+    "features": [
+      "Gap"
+    ],
+    "difficulty": 9
+  },
+  "Brooklyn Banks": {
+    "features": [
+      "Hip",
+      "Bank"
+    ],
+    "difficulty": 4
+  },
+  "Hollywood High": {
+    "features": [
+      "Handrail",
+      "Gap"
+    ],
+    "difficulty": 7
+  }
+}
