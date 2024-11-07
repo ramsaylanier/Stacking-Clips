@@ -1,0 +1,85 @@
+:root {
+  --primary: #a81ddf;
+  --primaryLight: color-mix(in srgb, var(--primary), white 70%);
+  --primaryDark: color-mix(in srgb, var(--primary), black 75%);
+  --secondary: #13ce61;
+  --secondaryDark: color-mix(in srgb, var(--secondary), black 75%);
+}
+
+* + * {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--primaryLight);
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  background-color: #a81ddf;
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+}
+
+header {
+  padding: 1rem;
+}
+
+form {
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--primaryDark);
+}
+
+label {
+  color: white;
+}
+
+input {
+  border: none;
+  padding: 0.5em 1em;
+  font-size: 1em;
+}
+
+input[type="submit"] {
+  background-color: var(--secondary);
+  color: var(--secondaryDark);
+  font-family: "Pixelify Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.form-group {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5em;
+}
+
+.form-group label {
+  flex: 1;
+}
+
+.form-group input {
+  flex: 3;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.pixel-heading {
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}

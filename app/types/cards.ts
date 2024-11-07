@@ -1,21 +1,13 @@
-export enum CardType {
-  Spot,
-  Skater,
-  Trick,
-  Gear,
-  Crew,
-  Event,
-}
+type CardType = "Spot" | "Skater" | "Trick" | "Gear" | "Crew" | "Event";
 
-export enum FeatureType {
-  Gap,
-  Ledge,
-  Handrail,
-  Hip,
-  Wallride,
-  Hubba,
-  Bank,
-}
+type FeatureType =
+  | "Gap"
+  | "Ledge"
+  | "Handrail"
+  | "Hip"
+  | "Wallride"
+  | "Hubba"
+  | "Bank";
 
 export interface Card {
   id: Number;
@@ -28,7 +20,8 @@ export interface Feature {
 }
 
 export interface SpotCard extends Card {
-  features: [FeatureType];
+  features: FeatureType[];
+  difficulty: Number;
 }
 
 export interface TrickCard extends Card {
@@ -42,3 +35,11 @@ export interface SkaterCard extends Card {}
 export interface CrewCard extends Card {}
 
 export interface EventCard extends Card {}
+
+export type GameCard =
+  | SpotCard
+  | TrickCard
+  | GearCard
+  | SkaterCard
+  | CrewCard
+  | EventCard;

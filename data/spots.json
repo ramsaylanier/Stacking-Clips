@@ -1,49 +1,56 @@
-{
-  "Carlsbad Gap": {
+[
+  {
+    "name": "Carlsbad Gap",
     "features": [
       "Gap"
     ],
     "difficulty": 6
   },
-  "El Toro": {
+  {
+    "name": "El Toro",
     "features": [
       "Handrail",
       "Gap"
     ],
     "difficulty": 9
   },
-  "Wallenberg": {
+  {
+    "name": "Wallenberg",
     "features": [
       "Handrail",
       "Gap"
     ],
     "difficulty": 8
   },
-  "MACBA": {
+  {
+    "name": "MACBA",
     "features": [
       "Ledge",
       "Gap"
     ],
     "difficulty": 3
   },
-  "Lyon 25": {
+  {
+    "name": "Lyon 25",
     "features": [
       "Gap"
     ],
     "difficulty": 9
   },
-  "Brooklyn Banks": {
+  {
+    "name": "Brooklyn Banks",
     "features": [
       "Hip",
       "Bank"
     ],
     "difficulty": 4
   },
-  "Hollywood High": {
+  {
+    "name": "Hollywood High",
     "features": [
       "Handrail",
       "Gap"
     ],
     "difficulty": 7
   }
-}
+]

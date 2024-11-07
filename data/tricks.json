@@ -1,54 +1,67 @@
-{
-  "Ollie": {
+[
+  {
+    "name": "Ollie",
     "type": "air",
     "score": 10
   },
-  "Kickflip": {
+  {
+    "name": "Kickflip",
     "type": "air",
     "score": 75
   },
-  "Heelflip": {
+  {
+    "name": "Heelflip",
     "type": "air",
     "score": 75
   },
-  "Shuv-it": {
+  {
+    "name": "Shuv-it",
     "type": "air",
     "score": 25
   },
-  "180": {
+  {
+    "name": "180",
     "type": "air",
     "score": 25
   },
-  "360": {
+  {
+    "name": "360",
     "type": "air",
     "score": 100
   },
-  "NoseSlide": {
+  {
+    "name": "NoseSlide",
     "type": "slide",
     "score": 75
   },
-  "TailSlide": {
+  {
+    "name": "TailSlide",
     "type": "slide",
     "score": 75
   },
-  "BoardSlide": {
+  {
+    "name": "BoardSlide",
     "type": "slide",
     "score": 50
   },
-  "LipSlide": {
+  {
+    "name": "LipSlide",
     "type": "slide",
     "score": 75
   },
-  "Nosegrind": {
+  {
+    "name": "Nosegrind",
     "type": "grind",
     "score": 75
   },
-  "5-0": {
+  {
+    "name": "5-0",
     "type": "grind",
     "score": 75
   },
-  "50-50": {
+  {
+    "name": "50-50",
     "type": "grind",
     "score": 50
   }
-}
+]
