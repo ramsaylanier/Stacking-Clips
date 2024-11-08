@@ -5,8 +5,9 @@ import AppLayout from "./layouts/AppLayout";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import Lobby from "./views/Lobby";
-import Game from "./views/GameBoard";
+import GameBoard from "./views/GameBoard";
 import GameClient from "./views/GameClient";
+import { GameStoreProvider } from "../state/gameStore";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,11 @@ const router = createBrowserRouter([
           },
           {
             path: "/game/:gameId",
-            element: <Game />,
+            element: (
+              <GameStoreProvider>
+                <GameBoard />,
+              </GameStoreProvider>
+            ),
           },
           {
             path: "/game/:gameId/client",

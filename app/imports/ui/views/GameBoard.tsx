@@ -5,22 +5,29 @@ import { GamesCollection } from "../../api/games/games";
 import { Meteor } from "meteor/meteor";
 import HStack from "../components/HStack";
 import VStack from "../components/VStack";
+import useGameStore from "/imports/state/gameStore";
+import { getSnapshot } from "mobx-state-tree";
+import { observer } from "mobx-react-lite";
 
-export default function GameBoard() {
+export default observer(function GameBoard() {
   const { gameId } = useParams();
   useSubscribe("game", gameId);
   useSubscribe("gamePlayers", gameId);
   const game = useTracker(() => GamesCollection.findOne({ _id: gameId }));
   const players = useTracker(() => Meteor.users.find({}).fetch());
 
+  const gameStore = useGameStore();
+
+  console.log(getSnapshot(gameStore));
+
   if (!game) return null;
 
   const handleStartGame = () => {
-    Meteor.call("startGame", gameId);
+    gameStore.startGame();
   };
 
   const handleResetGame = () => {
-    Meteor.call("resetGame", gameId);
+    gameStore.resetGame();
   };
 
   return (
@@ -39,6 +46,12 @@ export default function GameBoard() {
           return <p>{player.username}</p>;
         })}
       </HStack>
+
+      <HStack>
+        {gameStore.spotDeck.cards.map((card) => {
+          return <p>{card.name}</p>;
+        })}
+      </HStack>
     </VStack>
   );
-}
+});

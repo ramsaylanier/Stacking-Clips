@@ -1,13 +1,21 @@
-type CardType = "Spot" | "Skater" | "Trick" | "Gear" | "Crew" | "Event";
+export enum CardType {
+  Spot = "Spot",
+  Skater = "Skater",
+  Trick = "Trick",
+  Gear = "Gear",
+  Crew = "Crew",
+  Event = "Event",
+}
 
-type FeatureType =
-  | "Gap"
-  | "Ledge"
-  | "Handrail"
-  | "Hip"
-  | "Wallride"
-  | "Hubba"
-  | "Bank";
+export enum FeatureType {
+  Gap = "Gap",
+  Ledge = "Ledge",
+  Handrail = "Handrail",
+  Hip = "Hip",
+  Wallride = "Wallride",
+  Hubba = "Hubba",
+  Bank = "Bank",
+}
 
 export interface Card {
   id: Number;
