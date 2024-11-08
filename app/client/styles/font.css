@@ -1,0 +1,14 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Micro 5", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.pixelized-text {
+  font-family: "Micro 5", sans-serif;
+  font-style: normal;
+}

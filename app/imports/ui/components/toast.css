@@ -1,7 +1,0 @@
-.toast {
-  position: fixed;
-  z-index: 1000;
-  bottom: 1em;
-  background: red;
-  padding: 1em;
-}

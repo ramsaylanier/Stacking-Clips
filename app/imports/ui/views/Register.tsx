@@ -19,28 +19,26 @@ export default function Register() {
         throw Error("Passwords must match.");
       }
 
-      const res = await Meteor.callAsync("registerUser", {
-        username,
-        password,
-      });
+      const res = await Meteor.callAsync("registerUser", username, password);
 
       if (res) {
         toast({
           title: "Account created.",
           description: "Check your email for a link to complete enrollment.",
           status: "success",
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         });
 
         navigate("/");
       }
     } catch (error: any) {
+      console.log({ error });
       toast({
         title: "Error.",
         description: error.message,
         status: "error",
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       });
     }
@@ -49,7 +47,7 @@ export default function Register() {
   return (
     <>
       <header>
-        <h1>Login</h1>
+        <h1>Register</h1>
       </header>
       <main>
         <div className="content-wrapper">
@@ -89,7 +87,7 @@ export default function Register() {
             </div>
           </form>
 
-          <Link to="/register">Register</Link>
+          <Link to="/login">Login</Link>
         </div>
       </main>
     </>

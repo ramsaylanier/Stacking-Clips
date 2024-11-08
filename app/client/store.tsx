@@ -23,7 +23,6 @@ export const Store = types
   })
   .actions((self) => ({
     addToast(toast: IToastSnapshot) {
-      console.log({ toast });
       self.toasts.push(toast);
     },
     removeToast(toast: IToast) {

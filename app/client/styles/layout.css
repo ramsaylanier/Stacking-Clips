@@ -4,6 +4,8 @@
   --primaryDark: color-mix(in srgb, var(--primary), black 75%);
   --secondary: #13ce61;
   --secondaryDark: color-mix(in srgb, var(--secondary), black 75%);
+  --success-color: #4caf50;
+  --error-color: #f44336;
 }
 
 * + * {
@@ -14,17 +16,7 @@ body {
   background: var(--primaryLight);
   margin: 0;
   padding: 0;
-}
-
-main {
-  background-color: #a81ddf;
-  display: flex;
-  flex-flow: column;
-  gap: 1rem;
-}
-
-header {
-  padding: 1rem;
+  font-size: 16px;
 }
 
 form {
@@ -33,6 +25,8 @@ form {
   gap: 1rem;
   padding: 1rem;
   background: var(--primaryDark);
+  align-items: center;
+  justify-content: center;
 }
 
 label {
@@ -43,14 +37,14 @@ input {
   border: none;
   padding: 0.5em 1em;
   font-size: 1em;
+  border-radius: 3px;
 }
 
 input[type="submit"] {
   background-color: var(--secondary);
   color: var(--secondaryDark);
-  font-family: "Pixelify Sans", sans-serif;
-  font-weight: 700;
-  font-size: 1.2em;
+  font-weight: 900;
+  font-size: 1.3em;
 }
 
 .form-group {
@@ -67,19 +61,28 @@ input[type="submit"] {
   flex: 3;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Pixelify Sans", sans-serif;
-  font-optical-sizing: auto;
+button {
+  border: 0;
+  border-radius: 3px;
+  padding: 0.5em 1em;
+  font-size: 1.1em;
 }
 
-.pixel-heading {
-  font-family: "Pixelify Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
+.app-header {
+  padding: 1em;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--secondary);
+}
+
+.app-header .title {
+  margin: 0;
+  font-size: 1.8em;
+  color: var(--secondaryDark);
+}
+
+.app-header .logout-button {
+  font-size: 0.9em;
 }

@@ -1,0 +1,38 @@
+.toasts {
+  position: fixed;
+  display: flex;
+  flex-flow: column-reverse;
+  gap: 1em;
+  bottom: 1em;
+  left: 1em;
+}
+
+.toast {
+  position: relative;
+  z-index: 1000;
+  bottom: 1em;
+  padding: 1em;
+  border-radius: 3px;
+}
+
+.toast.success {
+  background-color: var(--success-color);
+}
+
+.toast.error {
+  background-color: var(--error-color);
+}
+
+.toast button {
+  border: 0;
+  border-radius: 3px;
+  font-size: 1em;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.toast .title {
+  font-size: 1.3em;
+  margin: 0;
+}

@@ -1,13 +1,9 @@
 import { Meteor } from "meteor/meteor";
-import { GamesCollection } from "/imports/api/games";
+import { userMethods } from "/imports/api/user";
 
-Meteor.startup(async () => {
-  Meteor.publish("games", function () {
-    return GamesCollection.find();
-  });
+import "/imports/api/games/server/methods";
+import "/imports/api/games/server/publications";
 
-  Meteor.publish("game", function (gameId: string) {
-    console.log({ gameId });
-    return GamesCollection.find({ _id: gameId });
-  });
-});
+Meteor.methods({ ...userMethods });
+
+Meteor.startup(async () => {});

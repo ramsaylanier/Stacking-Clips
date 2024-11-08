@@ -7,9 +7,13 @@ export default observer(function Toasts() {
   const store = useStore();
 
   return (
-    <div>
+    <div className="toasts">
       {store.toasts.map((toast, index) => (
-        <Toast key={`${toast.title}-${index}`} {...toast} />
+        <Toast
+          key={`${toast.title}-${index}`}
+          {...toast}
+          onClose={() => store.removeToast(toast)}
+        />
       ))}
     </div>
   );

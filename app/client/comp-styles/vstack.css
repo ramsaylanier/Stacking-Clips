@@ -1,5 +1,6 @@
-.game-list {
+.v-stack {
   display: flex;
   flex-flow: column;
   gap: 1rem;
+  width: 100%;
 }

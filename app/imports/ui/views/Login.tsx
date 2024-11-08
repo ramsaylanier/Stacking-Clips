@@ -1,16 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./login.css";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
+import { useTracker } from "meteor/react-meteor-data";
 
 export default function Login() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const currentUser = useTracker(() => Meteor.user());
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/");
+    }
+  }, [currentUser]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ username, password });
-    Meteor.loginWithPassword(username, password);
+    try {
+      Meteor.loginWithPassword(username, password);
+    } catch (err) {
+      console.log({ err });
+    }
   };
 
   return (

@@ -1,24 +1,24 @@
 import React from "react";
-import "./toast.css";
-import { createPortal } from "react-dom";
 
-export interface ToastProps {
-  title: string;
-  description: string;
-  status: "info" | "warning" | "success" | "error";
-  duration: number;
-  isClosable: boolean;
+import { IToastSnapshot } from "/client/store";
+
+export interface ToastProps extends IToastSnapshot {
+  onClose: () => void;
 }
 
 export default function Toast(props: ToastProps) {
-  console.log({ props });
+  React.useEffect(() => {
+    window.setTimeout(() => {
+      props.onClose();
+    }, props.duration);
+  }, []);
 
-  return createPortal(
+  return (
     <div className={`toast ${props.status}`}>
-      <p>{props.status}</p>
-      <h5>{props.title}</h5>
-      <p>{props.description}</p>
-    </div>,
-    document.body
+      {props.isClosable && <button onClick={props.onClose}>X</button>}
+
+      <h5 className="title">{props.title}</h5>
+      <p className="description">{props.description}</p>
+    </div>
   );
 }
