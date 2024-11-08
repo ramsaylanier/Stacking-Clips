@@ -13,6 +13,7 @@ export default Meteor.methods({
       status: "waiting",
       createdAt: new Date(),
       host: this.userId,
+      spots: [],
     });
   },
   async joinGame(code: string) {

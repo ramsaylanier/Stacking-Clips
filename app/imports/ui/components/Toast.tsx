@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IToastSnapshot } from "/client/store";
+import { IToastSnapshot } from "../../state/store";
 
 export interface ToastProps extends IToastSnapshot {
   onClose: () => void;

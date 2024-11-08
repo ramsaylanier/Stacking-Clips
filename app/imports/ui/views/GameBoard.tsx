@@ -3,6 +3,8 @@ import React from "react";
 import { useParams } from "react-router";
 import { GamesCollection } from "../../api/games/games";
 import { Meteor } from "meteor/meteor";
+import HStack from "../components/HStack";
+import VStack from "../components/VStack";
 
 export default function GameBoard() {
   const { gameId } = useParams();
@@ -10,10 +12,6 @@ export default function GameBoard() {
   useSubscribe("gamePlayers", gameId);
   const game = useTracker(() => GamesCollection.findOne({ _id: gameId }));
   const players = useTracker(() => Meteor.users.find({}).fetch());
-
-  console.log({ game, players });
-
-  console.log("STATUS", game?.status);
 
   if (!game) return null;
 
@@ -26,16 +24,21 @@ export default function GameBoard() {
   };
 
   return (
-    <div style={{ padding: "0em 2em" }}>
-      <h2 style={{ fontSize: "4rem", margin: 0 }}>Game Board - {game.code}</h2>
+    <VStack style={{ padding: "2rem" }}>
+      <h2 style={{ fontSize: "4rem", margin: 0 }}>
+        Game Board - {game.code} - {game.status}{" "}
+      </h2>
 
-      <button onClick={handleStartGame}>Start Game</button>
+      <HStack>
+        <button onClick={handleStartGame}>Start Game</button>
+        <button onClick={handleResetGame}>Reset Game</button>
+      </HStack>
 
-      <button onClick={handleResetGame}>Rest Game</button>
-
-      {players.map((player) => {
-        return <p>{player.username}</p>;
-      })}
-    </div>
+      <HStack>
+        {players.map((player) => {
+          return <p>{player.username}</p>;
+        })}
+      </HStack>
+    </VStack>
   );
 }

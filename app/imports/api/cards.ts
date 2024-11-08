@@ -26,5 +26,5 @@ const trickCards = tricks.map((trick, index) => {
   };
 }) as TrickCard[];
 
-export const SpotDeck = Deck(spotCards);
-export const TrickDeck = Deck(trickCards);
+export const SpotDeck = () => Deck(spotCards);
+export const TrickDeck = () => Deck(trickCards);

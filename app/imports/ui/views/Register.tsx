@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
-import useStore from "/client/store";
+import useStore from "../../state/store";
 
 export default function Register() {
   const [username, setUsername] = React.useState("");

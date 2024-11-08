@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import useStore from "/client/store";
+import useStore from "../../state/store";
 import Toast from "./Toast";
 
 export default observer(function Toasts() {
