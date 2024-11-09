@@ -1,5 +1,5 @@
 import React from "react";
-import { cast, getSnapshot, Instance, types } from "mobx-state-tree";
+import { cast, destroy, getSnapshot, Instance, types } from "mobx-state-tree";
 import { Card, CardType, FeatureType } from "/types/cards";
 import { shuffle } from "lodash";
 import { useParams } from "react-router";
@@ -8,7 +8,7 @@ import { Meteor } from "meteor/meteor";
 
 // CARDS
 const Card = types.model("Card", {
-  id: types.number,
+  id: types.identifierNumber,
   name: types.string,
   type: types.enumeration<CardType>("CardType", Object.values(CardType)),
 });
@@ -27,6 +27,8 @@ const Spot = types.model("Spot", {
 
 const SpotCard = types.compose(Card, Spot);
 
+export interface ISpotCard extends Instance<typeof SpotCard> {}
+
 // DECKS
 
 const SpotDeck = types
@@ -42,27 +44,33 @@ const SpotDeck = types
     },
   }));
 
+// GAME STORE
+
 export const GameStore = types
   .model("GameStore", {
     id: types.string,
     spotDeck: SpotDeck,
-    spots: types.array(SpotCard),
+    spots: types.array(types.reference(SpotCard)),
   })
   .actions((self) => ({
     startGame() {
       self.spotDeck.shuffle();
+      self.spots = cast(self.spotDeck.cards.slice(0, 3));
       Meteor.call("startGame", self.id);
     },
     resetGame() {
       self.spotDeck.shuffle();
       Meteor.call("resetGame", self.id);
     },
+    endGame() {
+      Meteor.call("endGame", self.id);
+      destroy(self);
+    },
   }));
 
 export interface IGameStore extends Instance<typeof GameStore> {}
 
 export const GameStoreContext = React.createContext<IGameStore | null>(null);
-
 export const GameStoreProvider = (props: React.PropsWithChildren) => {
   const { gameId } = useParams();
 
@@ -81,8 +89,6 @@ export const GameStoreProvider = (props: React.PropsWithChildren) => {
       difficulty: spot.difficulty,
     };
   });
-
-  console.log({ gameId });
 
   const store = React.useMemo(() => {
     const spotDeck = SpotDeck.create({ gameId, cards: spotCards });

@@ -1,0 +1,12 @@
+.game-client {
+}
+
+.game-client header {
+  padding: 1em;
+  background-color: white;
+}
+
+.game-board header {
+  padding: 2em;
+  background-color: var(--primary);
+}

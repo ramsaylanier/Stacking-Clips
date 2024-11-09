@@ -62,6 +62,24 @@ export default Meteor.methods({
 
     return game;
   },
+  async endGame(gameId: string) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+    const game = await GamesCollection.updateAsync(
+      { _id: gameId, host: userId },
+      { $set: { status: "finished" } }
+    );
+
+    if (!game) {
+      throw new Meteor.Error("game-not-found");
+    }
+
+    return game;
+  },
   async resetGame(gameId: string) {
     const userId = this.userId;
 
@@ -76,6 +94,32 @@ export default Meteor.methods({
 
     if (!game) {
       throw new Meteor.Error("game-not-found");
+    }
+
+    return game;
+  },
+  async leaveGame(gameId: string) {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+    const game = await GamesCollection.findOneAsync({ _id: gameId });
+
+    if (!game) {
+      throw new Error("game-not-found");
+    }
+
+    if (game.status !== "waiting") {
+      throw new Error("game-not-waiting");
+    }
+
+    if (game.players.includes(userId)) {
+      await GamesCollection.updateAsync(
+        { _id: game._id },
+        { $pull: { players: userId } }
+      );
     }
 
     return game;

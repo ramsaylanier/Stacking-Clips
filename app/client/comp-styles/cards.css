@@ -1,0 +1,28 @@
+.card {
+  border: 1px solid black;
+  padding: 1em;
+  border-radius: 5px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.card-title {
+  font-size: 3em;
+}
+
+.spot-card {
+  flex-basis: 1;
+  width: clamp(200px, 30vw, 800px);
+  height: clamp(100px, 20vw, 400px);
+}
+
+.cards-list {
+  display: flex;
+  flex-flow: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1em;
+}
