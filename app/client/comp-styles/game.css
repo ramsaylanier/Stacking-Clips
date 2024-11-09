@@ -1,4 +1,15 @@
 .game-client {
+  gap: 0;
+}
+
+.game-client .player {
+  padding: 1rem;
+}
+
+.game-client .player .player-name {
+  padding: 0;
+  font-size: 3em;
+  margin: 0;
 }
 
 .game-client > header {
@@ -22,4 +33,13 @@
   color: var(--primaryDark);
   border-radius: 15px;
   font-weight: 900;
+}
+
+.player-hand {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  width: 100%;
+  flex-wrap: nowrap;
 }

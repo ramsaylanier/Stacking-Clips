@@ -1,10 +1,10 @@
 import React from "react";
 import HStack from "./HStack";
 import VStack from "./VStack";
-import { Player } from "/imports/api/games/games";
+import { IPlayer } from "/imports/state/gameStore";
 
 interface PlayersListProps {
-  players: Player[];
+  players: IPlayer[];
 }
 
 export default function PlayersList(props: PlayersListProps) {

@@ -147,4 +147,10 @@ export default Meteor.methods({
 
     return game;
   },
+  async dealPlayerHand(gameId, playerId, hand) {
+    return await GamesCollection.updateAsync(
+      { _id: gameId, "players._id": playerId },
+      { $set: { "players.$.hand": hand } }
+    );
+  },
 });

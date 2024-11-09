@@ -1,67 +1,84 @@
-[
-  {
-    "name": "Ollie",
-    "type": "air",
-    "score": 10
+{
+  "counts": {
+    "Ollie": 10,
+    "Kickflip": 7,
+    "Heelflip": 7,
+    "Shuv-it": 2,
+    "180": 2,
+    "360": 1,
+    "NoseSlide": 7,
+    "TailSlide": 7,
+    "BoardSlide": 5,
+    "LipSlide": 7,
+    "Nosegrind": 7,
+    "5-0": 7,
+    "50-50": 5
   },
-  {
-    "name": "Kickflip",
-    "type": "air",
-    "score": 75
-  },
-  {
-    "name": "Heelflip",
-    "type": "air",
-    "score": 75
-  },
-  {
-    "name": "Shuv-it",
-    "type": "air",
-    "score": 25
-  },
-  {
-    "name": "180",
-    "type": "air",
-    "score": 25
-  },
-  {
-    "name": "360",
-    "type": "air",
-    "score": 100
-  },
-  {
-    "name": "NoseSlide",
-    "type": "slide",
-    "score": 75
-  },
-  {
-    "name": "TailSlide",
-    "type": "slide",
-    "score": 75
-  },
-  {
-    "name": "BoardSlide",
-    "type": "slide",
-    "score": 50
-  },
-  {
-    "name": "LipSlide",
-    "type": "slide",
-    "score": 75
-  },
-  {
-    "name": "Nosegrind",
-    "type": "grind",
-    "score": 75
-  },
-  {
-    "name": "5-0",
-    "type": "grind",
-    "score": 75
-  },
-  {
-    "name": "50-50",
-    "type": "grind",
-    "score": 50
-  }
-]
+  "cards": [
+    {
+      "name": "Ollie",
+      "type": "air",
+      "score": 10
+    },
+    {
+      "name": "Kickflip",
+      "type": "air",
+      "score": 75
+    },
+    {
+      "name": "Heelflip",
+      "type": "air",
+      "score": 75
+    },
+    {
+      "name": "Shuv-it",
+      "type": "air",
+      "score": 25
+    },
+    {
+      "name": "180",
+      "type": "air",
+      "score": 25
+    },
+    {
+      "name": "360",
+      "type": "air",
+      "score": 100
+    },
+    {
+      "name": "NoseSlide",
+      "type": "slide",
+      "score": 75
+    },
+    {
+      "name": "TailSlide",
+      "type": "slide",
+      "score": 75
+    },
+    {
+      "name": "BoardSlide",
+      "type": "slide",
+      "score": 50
+    },
+    {
+      "name": "LipSlide",
+      "type": "slide",
+      "score": 75
+    },
+    {
+      "name": "Nosegrind",
+      "type": "grind",
+      "score": 75
+    },
+    {
+      "name": "5-0",
+      "type": "grind",
+      "score": 75
+    },
+    {
+      "name": "50-50",
+      "type": "grind",
+      "score": 50
+    }
+  ]
+}

@@ -6,14 +6,17 @@ import HStack from "../components/HStack";
 import VStack from "../components/VStack";
 import { Meteor } from "meteor/meteor";
 import PlayerActions from "../components/PlayerActions";
+import PlayerHand from "../components/PlayerHand";
 
 export default function GameClient() {
   const { gameId } = useParams();
-  useSubscribe("game", gameId);
-  useSubscribe("gamePlayers", gameId);
+  useSubscribe("gameClient", gameId);
   const navigate = useNavigate();
 
   const game = useTracker(() => GamesCollection.findOne({ _id: gameId }));
+  const player = game?.players[0];
+
+  console.log({ game });
 
   return (
     <VStack className="game-client">
@@ -32,9 +35,13 @@ export default function GameClient() {
         </button>
       </HStack>
 
-      <div className="player">
-        <PlayerActions />
-      </div>
+      {player && (
+        <VStack className="player">
+          <h3 className="player-name">{player.name}</h3>
+          <PlayerActions />
+          <PlayerHand hand={player.hand} />
+        </VStack>
+      )}
     </VStack>
   );
 }

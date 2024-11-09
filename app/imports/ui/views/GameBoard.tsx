@@ -26,13 +26,13 @@ export default observer(function GameBoard() {
   if (!game) return null;
 
   return (
-    <VStack className="game-board" gap={0}>
+    <VStack className="game-board">
       <header>
         <h2 style={{ fontSize: "4rem", margin: 0 }}>
           {game.code}-{game.status}
         </h2>
         <HStack justify="space-between">
-          <HStack>
+          <HStack gap="1em">
             {game.status === "waiting" && (
               <button onClick={() => gameStore.startGame()}>Start Game</button>
             )}
@@ -43,7 +43,7 @@ export default observer(function GameBoard() {
         </HStack>
       </header>
 
-      <PlayersList players={game.players} />
+      <PlayersList players={gameStore.players} />
 
       <VStack
         style={{
@@ -57,6 +57,7 @@ export default observer(function GameBoard() {
         <HStack
           justify="center"
           align="flex-start"
+          gap="1em"
           style={{
             flexWrap: "nowrap",
             overflow: "auto",

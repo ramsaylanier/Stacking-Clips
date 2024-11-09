@@ -18,7 +18,7 @@ const actions = [
 
 export default function PlayerActions() {
   return (
-    <VStack>
+    <VStack gap="1rem">
       {actions.map((action) => {
         return <button key={action.name}>{action.name}</button>;
       })}
