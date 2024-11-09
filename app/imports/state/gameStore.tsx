@@ -1,10 +1,18 @@
 import React from "react";
-import { cast, destroy, getSnapshot, Instance, types } from "mobx-state-tree";
+import {
+  cast,
+  destroy,
+  getSnapshot,
+  Instance,
+  SnapshotOut,
+  types,
+} from "mobx-state-tree";
 import { Card, CardType, FeatureType } from "/types/cards";
 import { shuffle } from "lodash";
 import { useParams } from "react-router";
 import spots from "../data/spots.json";
 import { Meteor } from "meteor/meteor";
+import { Game } from "../api/games/games";
 
 // CARDS
 const Card = types.model("Card", {
@@ -28,6 +36,7 @@ const Spot = types.model("Spot", {
 const SpotCard = types.compose(Card, Spot);
 
 export interface ISpotCard extends Instance<typeof SpotCard> {}
+export interface ISpotCardSnapshot extends SnapshotOut<typeof SpotCard> {}
 
 // DECKS
 
@@ -38,8 +47,6 @@ const SpotDeck = types
   })
   .actions((self) => ({
     shuffle() {
-      console.log("shuffle");
-      console.log(getSnapshot(self.cards));
       self.cards = cast(shuffle(self.cards));
     },
   }));
@@ -51,12 +58,14 @@ export const GameStore = types
     id: types.string,
     spotDeck: SpotDeck,
     spots: types.array(types.reference(SpotCard)),
+    hydrated: false,
   })
   .actions((self) => ({
     startGame() {
       self.spotDeck.shuffle();
-      self.spots = cast(self.spotDeck.cards.slice(0, 3));
-      Meteor.call("startGame", self.id);
+      const spots = self.spotDeck.cards.slice(0, 3);
+      self.spots = cast(spots.map((s) => s.id));
+      Meteor.call("startGame", self.id, spots);
     },
     resetGame() {
       self.spotDeck.shuffle();
@@ -65,6 +74,10 @@ export const GameStore = types
     endGame() {
       Meteor.call("endGame", self.id);
       destroy(self);
+    },
+    hydrateGame(game: Game) {
+      self.hydrated = true;
+      self.spots = cast(game.spots.map((s) => s.id));
     },
   }));
 

@@ -1,7 +1,7 @@
 .game-client {
 }
 
-.game-client header {
+.game-client > header {
   padding: 1em;
   background-color: white;
 }

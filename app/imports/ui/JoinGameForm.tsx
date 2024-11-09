@@ -15,8 +15,6 @@ export default function JoinGameForm() {
       if (res) {
         navigate(`/game/${res._id}/client`);
       }
-
-      console.log({ res });
     } catch (err) {
       console.log({ err });
     }

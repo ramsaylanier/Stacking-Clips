@@ -38,15 +38,11 @@ const router = createBrowserRouter([
               </GameStoreProvider>
             ),
           },
-          {
-            path: "/game/:gameId/client",
-            element: (
-              <GameStoreProvider>
-                <GameClient />
-              </GameStoreProvider>
-            ),
-          },
         ],
+      },
+      {
+        path: "/game/:gameId/client",
+        element: <GameClient />,
       },
     ],
   },

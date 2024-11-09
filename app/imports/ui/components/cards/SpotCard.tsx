@@ -1,16 +1,16 @@
 import React from "react";
-import { ISpotCard } from "/imports/state/gameStore";
 import HStack from "../HStack";
 import VStack from "../VStack";
+import { SpotCard } from "/types/cards";
+import { ISpotCard } from "/imports/state/gameStore";
 
 interface SpotCardProps extends ISpotCard {}
 
 export default function SpotCard(props: SpotCardProps) {
-  const imageUrl = `../images/spots/${props.name
+  const imageUrl = `/images/spots/${props.name
     .split(" ")
     .join("")
     .toLowerCase()}.jpg`;
-  console.log({ imageUrl });
 
   return (
     <VStack

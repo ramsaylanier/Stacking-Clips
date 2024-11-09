@@ -1,5 +1,5 @@
 import { useSubscribe, useTracker } from "meteor/react-meteor-data";
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { GamesCollection } from "../../api/games/games";
 import HStack from "../components/HStack";
@@ -12,6 +12,7 @@ import PlayersList from "../components/PlayersList";
 
 export default observer(function GameBoard() {
   const { gameId } = useParams();
+  const gameStore = useGameStore();
 
   const game = useTracker(() => GamesCollection.findOne({ _id: gameId }));
   const players = useTracker(() =>
@@ -21,7 +22,11 @@ export default observer(function GameBoard() {
   useSubscribe("game", gameId);
   useSubscribe("gamePlayers", game?.players || []);
 
-  const gameStore = useGameStore();
+  useEffect(() => {
+    if (game && !gameStore.hydrated) {
+      gameStore.hydrateGame(game);
+    }
+  }, [game?.spots]);
 
   if (!game) return null;
 
@@ -45,9 +50,7 @@ export default observer(function GameBoard() {
 
       <PlayersList players={players} />
 
-      <HStack
-        justify="center"
-        align="flex-start"
+      <VStack
         style={{
           flexWrap: "nowrap",
           overflow: "auto",
@@ -55,10 +58,21 @@ export default observer(function GameBoard() {
           padding: "1rem",
         }}
       >
-        {gameStore.spots.map((card) => {
-          return <SpotCard key={card.id} {...card} />;
-        })}
-      </HStack>
+        <h3 style={{ fontSize: "2em", margin: 0 }}>Spots</h3>
+        <HStack
+          justify="center"
+          align="flex-start"
+          style={{
+            flexWrap: "nowrap",
+            overflow: "auto",
+            width: "100%",
+          }}
+        >
+          {gameStore.spots.map((card) => {
+            return <SpotCard key={card.id} {...card} />;
+          })}
+        </HStack>
+      </VStack>
     </VStack>
   );
 });

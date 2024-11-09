@@ -7,13 +7,10 @@ const userMethods = {
     username: string,
     password: string
   ) {
-    console.log({ username, password });
     const user = await Accounts.createUserAsync({
       username,
       password,
     });
-
-    console.log({ user });
 
     return user;
   },

@@ -6,11 +6,13 @@ interface HStackProps extends React.PropsWithChildren {
   justify?: "flex-start" | "center" | "flex-end" | "space-between";
   align?: "flex-start" | "center" | "flex-end";
   gap?: number | string;
+  as?: React.ElementType;
 }
 
 export default function HStack(props: HStackProps) {
+  const Component = props.as || "div";
   return (
-    <div
+    <Component
       className={`h-stack ${props.className || ""} `}
       style={{
         justifyContent: props.justify,
@@ -20,6 +22,6 @@ export default function HStack(props: HStackProps) {
       }}
     >
       {props.children}
-    </div>
+    </Component>
   );
 }

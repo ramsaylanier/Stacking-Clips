@@ -18,8 +18,8 @@ export enum FeatureType {
 }
 
 export interface Card {
-  id: Number;
-  name: String;
+  id: number;
+  name: string;
   type: CardType;
 }
 
@@ -29,11 +29,11 @@ export interface Feature {
 
 export interface SpotCard extends Card {
   features: FeatureType[];
-  difficulty: Number;
+  difficulty: number;
 }
 
 export interface TrickCard extends Card {
-  score: Number;
+  score: number;
 }
 
 export interface GearCard extends Card {}

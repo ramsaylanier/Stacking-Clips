@@ -1,5 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { GamesCollection } from "../games";
+import { SpotCard } from "/types/cards";
 
 export default Meteor.methods({
   createGame() {
@@ -44,7 +45,7 @@ export default Meteor.methods({
 
     return game;
   },
-  async startGame(gameId: string) {
+  async startGame(gameId: string, spots: SpotCard[]) {
     const userId = this.userId;
 
     if (!userId) {
@@ -53,7 +54,7 @@ export default Meteor.methods({
 
     const game = await GamesCollection.updateAsync(
       { _id: gameId, host: userId },
-      { $set: { status: "playing" } }
+      { $set: { status: "playing", spots: spots } }
     );
 
     if (!game) {
@@ -89,7 +90,7 @@ export default Meteor.methods({
 
     const game = await GamesCollection.updateAsync(
       { _id: gameId, host: userId },
-      { $set: { status: "waiting" } }
+      { $set: { status: "waiting", spots: [] } }
     );
 
     if (!game) {
