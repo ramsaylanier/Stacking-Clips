@@ -1,6 +1,6 @@
 import { useSubscribe, useTracker } from "meteor/react-meteor-data";
 import React from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { GamesCollection } from "../../api/games/games";
 import HStack from "../components/HStack";
 import VStack from "../components/VStack";
@@ -11,6 +11,7 @@ export default function GameClient() {
   const { gameId } = useParams();
   useSubscribe("game", gameId);
   useSubscribe("gamePlayers", gameId);
+  const navigate = useNavigate();
 
   const game = useTracker(() => GamesCollection.findOne({ _id: gameId }));
 
@@ -21,7 +22,12 @@ export default function GameClient() {
           {game?.code} - {game?.status}
         </h2>
 
-        <button onClick={() => Meteor.callAsync("leaveGame", gameId)}>
+        <button
+          onClick={() => {
+            Meteor.callAsync("leaveGame", gameId);
+            navigate("/");
+          }}
+        >
           Leave Game
         </button>
       </HStack>
