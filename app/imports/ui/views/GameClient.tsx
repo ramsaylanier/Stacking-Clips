@@ -5,6 +5,7 @@ import { GamesCollection } from "../../api/games/games";
 import HStack from "../components/HStack";
 import VStack from "../components/VStack";
 import { Meteor } from "meteor/meteor";
+import PlayerActions from "../components/PlayerActions";
 
 export default function GameClient() {
   const { gameId } = useParams();
@@ -25,7 +26,9 @@ export default function GameClient() {
         </button>
       </HStack>
 
-      <div className="player"></div>
+      <div className="player">
+        <PlayerActions />
+      </div>
     </VStack>
   );
 }

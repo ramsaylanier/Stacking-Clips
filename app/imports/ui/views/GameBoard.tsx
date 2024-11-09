@@ -7,7 +7,6 @@ import VStack from "../components/VStack";
 import useGameStore from "/imports/state/gameStore";
 import { observer } from "mobx-react-lite";
 import SpotCard from "../components/cards/SpotCard";
-import { Meteor } from "meteor/meteor";
 import PlayersList from "../components/PlayersList";
 
 export default observer(function GameBoard() {
@@ -15,12 +14,8 @@ export default observer(function GameBoard() {
   const gameStore = useGameStore();
 
   const game = useTracker(() => GamesCollection.findOne({ _id: gameId }));
-  const players = useTracker(() =>
-    Meteor.users.find({}, { fields: { username: 1 } }).fetch()
-  );
 
   useSubscribe("game", gameId);
-  useSubscribe("gamePlayers", game?.players || []);
 
   useEffect(() => {
     if (game && !gameStore.hydrated) {
@@ -48,7 +43,7 @@ export default observer(function GameBoard() {
         </HStack>
       </header>
 
-      <PlayersList players={players} />
+      <PlayersList players={game.players} />
 
       <VStack
         style={{

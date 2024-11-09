@@ -1,10 +1,10 @@
 import React from "react";
 import HStack from "./HStack";
-import { Meteor } from "meteor/meteor";
 import VStack from "./VStack";
+import { Player } from "/imports/api/games/games";
 
 interface PlayersListProps {
-  players: Meteor.User[];
+  players: Player[];
 }
 
 export default function PlayersList(props: PlayersListProps) {
@@ -15,7 +15,7 @@ export default function PlayersList(props: PlayersListProps) {
         {props.players.map((player) => {
           return (
             <p key={player._id} className="player-name">
-              {player.username}
+              {player.name}
             </p>
           );
         })}

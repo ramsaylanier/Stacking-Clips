@@ -1,19 +1,33 @@
 import { Meteor } from "meteor/meteor";
-import { GamesCollection } from "../games";
+import { GamesCollection, Player } from "../games";
 import { SpotCard } from "/types/cards";
 
 export default Meteor.methods({
-  createGame() {
+  async createGame() {
     const code = Math.random().toString(36).slice(-5);
+    const user = await Meteor.userAsync();
 
-    if (!this.userId) throw new Meteor.Error("not-authorized");
+    if (!user) throw new Meteor.Error("not-authorized");
+
+    const username = user.username;
+
+    if (!username) throw new Meteor.Error("username-not-set");
+
+    const player: Player = {
+      _id: user._id,
+      name: username,
+      score: 0,
+      clips: [],
+      hand: [],
+    };
 
     return GamesCollection.insertAsync({
       code: code,
-      players: [],
+      playerIds: [user._id],
+      players: [player],
       status: "waiting",
       createdAt: new Date(),
-      host: this.userId,
+      host: user._id,
       spots: [],
     });
   },
@@ -34,14 +48,26 @@ export default Meteor.methods({
       throw new Error("game-not-waiting");
     }
 
-    if (game.players.includes(userId)) {
-      return game;
+    const user = await Meteor.users.findOneAsync({ _id: userId });
+
+    if (!user) {
+      throw new Error("user-not-found");
     }
 
-    await GamesCollection.updateAsync(
-      { _id: game._id },
-      { $push: { players: userId } }
-    );
+    if (!game.playerIds.includes(userId)) {
+      const player = {
+        _id: userId,
+        name: user.username,
+        score: 0,
+        clips: [],
+        hand: [],
+      };
+
+      await GamesCollection.updateAsync(
+        { _id: game._id },
+        { $push: { playerIds: userId, players: player } }
+      );
+    }
 
     return game;
   },
@@ -112,14 +138,10 @@ export default Meteor.methods({
       throw new Error("game-not-found");
     }
 
-    if (game.status !== "waiting") {
-      throw new Error("game-not-waiting");
-    }
-
-    if (game.players.includes(userId)) {
+    if (game.playerIds.includes(userId)) {
       await GamesCollection.updateAsync(
         { _id: game._id },
-        { $pull: { players: userId } }
+        { $pull: { playerIds: userId, players: { _id: userId } } }
       );
     }
 

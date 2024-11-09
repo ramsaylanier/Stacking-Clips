@@ -1,5 +1,5 @@
 import { Mongo } from "meteor/mongo";
-import { SpotCard } from "/types/cards";
+import { SpotCard, TrickCard } from "/types/cards";
 
 export interface Deck<CardType> {
   cards: CardType[];
@@ -11,13 +11,15 @@ export interface Player {
   name: string;
   score: number;
   clips: string[];
+  hand: TrickCard[];
 }
 
 export interface Game {
   _id?: string;
   code: string;
   createdAt: Date;
-  players: string[];
+  playerIds: string[];
+  players: Player[];
   status: "waiting" | "playing" | "finished";
   host: string;
   spots: SpotCard[];
