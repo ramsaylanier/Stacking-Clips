@@ -36,10 +36,15 @@ export default function GameClient() {
       </HStack>
 
       {player && (
-        <VStack className="player">
-          <h3 className="player-name">{player.name}</h3>
-          <PlayerActions />
-          <PlayerHand hand={player.hand} />
+        <VStack className="player" justify="space-between">
+          <div style={{ padding: "1rem" }}>
+            <h3 className="player-name">{player.name}</h3>
+            <PlayerActions />
+          </div>
+
+          <div>
+            <PlayerHand hand={player.hand} />
+          </div>
         </VStack>
       )}
     </VStack>

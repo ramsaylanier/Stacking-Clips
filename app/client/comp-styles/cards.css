@@ -78,8 +78,10 @@
 }
 
 .player-card {
-  min-width: 100px;
+  flex: 1;
+  min-width: clamp(100px, 20cqw, 400px);
   min-height: 150px;
+  background-color: white;
 }
 
 .player-card .card-title {

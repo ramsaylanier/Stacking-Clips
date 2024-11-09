@@ -1,5 +1,4 @@
 .v-stack {
   display: flex;
   flex-flow: column;
-  width: 100%;
 }
