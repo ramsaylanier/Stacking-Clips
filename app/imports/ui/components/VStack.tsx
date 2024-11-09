@@ -3,12 +3,32 @@ import React from "react";
 interface VStackProps extends React.PropsWithChildren {
   className?: string;
   style?: React.CSSProperties;
+  justify?:
+    | "flex-start"
+    | "center"
+    | "flex-end"
+    | "space-between"
+    | "space-around"
+    | "space-evenly";
+  align?: "flex-start" | "center" | "flex-end" | "stretch";
+  gap?: number | string;
+  as?: React.ElementType;
 }
 
 export default function VStack(props: VStackProps) {
+  const Component = props.as || "div";
+
   return (
-    <div className={`v-stack ${props.className || ""} `} style={props.style}>
+    <Component
+      className={`v-stack ${props.className || ""} `}
+      style={{
+        justifyContent: props.justify,
+        alignItems: props.align,
+        gap: props.gap,
+        ...props.style,
+      }}
+    >
       {props.children}
-    </div>
+    </Component>
   );
 }

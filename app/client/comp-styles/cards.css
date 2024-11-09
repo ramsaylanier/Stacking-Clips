@@ -1,22 +1,52 @@
 .card {
   border: 1px solid black;
-  padding: 1em;
   border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: var(--primary);
+  padding: 0 1rem;
+  width: 100%;
+  position: relative;
   display: flex;
-  flex-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card-badge {
+  background-color: var(--secondary);
+  color: var(--primaryLight);
+  height: 40px;
+  width: 40px;
+  font-weight: 900;
+  border-radius: 20px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1em;
 }
 
 .card-title {
+  flex: 0;
+  position: relative;
+  margin: 0;
   font-size: 3em;
 }
 
+.card-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: grayscale(100%);
+}
+
 .spot-card {
-  flex-basis: 1;
-  width: clamp(200px, 30vw, 800px);
-  height: clamp(100px, 20vw, 400px);
+  flex: 1;
 }
 
 .cards-list {
@@ -25,4 +55,17 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: 1em;
+}
+
+.card-features {
+  position: relative;
+  padding: 1rem;
+  background-color: white;
+}
+
+.card-feature {
+  background-color: var(--secondary);
+  padding: 0.25em 0.5em;
+  color: white;
+  border-radius: 5px;
 }

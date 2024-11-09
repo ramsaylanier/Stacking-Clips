@@ -6,7 +6,20 @@
   background-color: white;
 }
 
-.game-board header {
+.game-board > header {
   padding: 2em;
   background-color: var(--primary);
+}
+
+.players-list {
+  padding: 1em;
+  background-color: white;
+}
+
+.player-name {
+  padding: 0.25em 1.25em;
+  background-color: var(--primaryLight);
+  color: var(--primaryDark);
+  border-radius: 15px;
+  font-weight: 900;
 }

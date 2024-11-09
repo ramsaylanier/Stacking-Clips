@@ -1,15 +1,25 @@
 import React from "react";
 import HStack from "./HStack";
-import { useParams } from "react-router";
+import { Meteor } from "meteor/meteor";
+import VStack from "./VStack";
 
-export default function PlayersList() {
-  const { gameId } = useParams();
+interface PlayersListProps {
+  players: Meteor.User[];
+}
 
+export default function PlayersList(props: PlayersListProps) {
   return (
-    <HStack>
-      {players.map((player) => {
-        return <p>{player.username}</p>;
-      })}
-    </HStack>
+    <VStack gap={0} className="players-list">
+      <h4 style={{ margin: 0, fontSize: "2em" }}>Players</h4>
+      <HStack>
+        {props.players.map((player) => {
+          return (
+            <p key={player._id} className="player-name">
+              {player.username}
+            </p>
+          );
+        })}
+      </HStack>
+    </VStack>
   );
 }

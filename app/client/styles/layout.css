@@ -1,11 +1,15 @@
 :root {
-  --primary: #a81ddf;
+  --primary: #10b3c9;
   --primaryLight: color-mix(in srgb, var(--primary), white 70%);
   --primaryDark: color-mix(in srgb, var(--primary), black 75%);
-  --secondary: #13ce61;
+  --secondary: #e9890c;
   --secondaryDark: color-mix(in srgb, var(--secondary), black 75%);
   --success-color: #4caf50;
   --error-color: #f44336;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 * + * {

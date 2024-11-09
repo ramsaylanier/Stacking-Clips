@@ -8,6 +8,7 @@ import useGameStore from "/imports/state/gameStore";
 import { observer } from "mobx-react-lite";
 import SpotCard from "../components/cards/SpotCard";
 import { Meteor } from "meteor/meteor";
+import PlayersList from "../components/PlayersList";
 
 export default observer(function GameBoard() {
   const { gameId } = useParams();
@@ -25,32 +26,37 @@ export default observer(function GameBoard() {
   if (!game) return null;
 
   return (
-    <VStack className="game-board">
+    <VStack className="game-board" gap={0}>
       <header>
         <h2 style={{ fontSize: "4rem", margin: 0 }}>
           {game.code}-{game.status}
         </h2>
+        <HStack justify="space-between">
+          <HStack>
+            {game.status === "waiting" && (
+              <button onClick={() => gameStore.startGame()}>Start Game</button>
+            )}
+            <button onClick={() => gameStore.resetGame()}>Reset Game</button>
+          </HStack>
+
+          <button onClick={() => gameStore.endGame()}>End Game</button>
+        </HStack>
       </header>
 
-      <HStack>
-        <button onClick={() => gameStore.startGame()}>Start Game</button>
-        <button onClick={() => gameStore.resetGame()}>Reset Game</button>
-        <button onClick={() => gameStore.endGame()}>End Game</button>
-      </HStack>
-
-      <HStack>
-        {players.map((player) => {
-          return <p>{player.username}</p>;
-        })}
-      </HStack>
+      <PlayersList players={players} />
 
       <HStack
         justify="center"
         align="flex-start"
-        style={{ flexWrap: "nowrap", overflow: "auto", width: "100%" }}
+        style={{
+          flexWrap: "nowrap",
+          overflow: "auto",
+          width: "100%",
+          padding: "1rem",
+        }}
       >
         {gameStore.spots.map((card) => {
-          return <SpotCard {...card} />;
+          return <SpotCard key={card.id} {...card} />;
         })}
       </HStack>
     </VStack>
