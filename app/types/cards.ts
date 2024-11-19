@@ -1,3 +1,5 @@
+import { string } from "mobx-state-tree/dist/internal";
+
 export enum CardType {
   Spot = "Spot",
   Skater = "Skater",
@@ -28,21 +30,34 @@ export interface Feature {
 }
 
 export interface SpotCard extends Card {
-  features: FeatureType[];
+  features: Feature[];
   difficulty: number;
 }
 
 export interface TrickCard extends Card {
   score: number;
+  trickType: string;
 }
 
-export interface GearCard extends Card {}
+export interface GearCard extends Card {
+  price: string;
+  description: string;
+}
 
-export interface SkaterCard extends Card {}
+export interface SkaterCard extends Card {
+  tricks: {
+    air: number;
+    slide: number;
+    grind: number;
+  };
+  bonus: string[];
+}
 
 export interface CrewCard extends Card {}
 
 export interface EventCard extends Card {}
+
+export type PlayerCard = TrickCard | GearCard | CrewCard | EventCard;
 
 export type GameCard =
   | SpotCard

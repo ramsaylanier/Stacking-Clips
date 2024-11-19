@@ -1,5 +1,14 @@
 import { Meteor } from "meteor/meteor";
-import { GamesCollection } from "./games";
+import { GamesCollection, PlayersCollection } from "./games";
+
+Meteor.publish("gameLobby", function () {
+  if (!this.userId) {
+    return;
+  }
+  return GamesCollection.find({
+    $or: [{ playerIds: this.userId }, { host: this.userId }],
+  });
+});
 
 Meteor.publish("games", function () {
   return GamesCollection.find();
@@ -9,19 +18,25 @@ Meteor.publish("game", async function (gameId: string) {
   return GamesCollection.find({ _id: gameId });
 });
 
+Meteor.publish("players", async function (gameId: string) {
+  return PlayersCollection.find({ gameId: gameId });
+});
+
+Meteor.publish("player", async function (gameId: string) {
+  if (!this.userId) {
+    return;
+  }
+
+  return PlayersCollection.find({ gameId: gameId, userId: this.userId });
+});
+
 Meteor.publish("gameClient", async function (gameId: string) {
   if (!this.userId) return;
 
-  return GamesCollection.find(
-    { _id: gameId, "players._id": this.userId },
-    {
-      fields: {
-        players: { $elemMatch: { _id: this.userId } },
-        code: 1,
-        status: 1,
-      },
-    }
-  );
+  return [
+    GamesCollection.find({ _id: gameId, playerIds: this.userId }),
+    PlayersCollection.find({ gameId: gameId }),
+  ];
 });
 
 Meteor.publish("gamePlayers", async function (playerIds: string[]) {

@@ -91,3 +91,29 @@
 .player-card .card-header {
   padding: 0.25em;
 }
+
+.skater-card {
+  flex: 1;
+}
+
+.skater-card .card-header {
+  background-color: var(--secondary);
+}
+
+.skater-card .card-body {
+  padding: 1rem;
+}
+
+.skater-card.disabled {
+  filter: grayscale(100%);
+}
+.skater-card.selected {
+  border: 10px solid green;
+}
+
+.skater-card .card-feature {
+  background-color: var(--secondary);
+  padding: 0.25em 0.5em;
+  color: white;
+  border-radius: 5px;
+}

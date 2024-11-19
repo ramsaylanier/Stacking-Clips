@@ -3,13 +3,19 @@ import VStack from "./VStack";
 
 const actions = [
   {
-    name: "Attempt Trick",
+    name: "Attempt To Stack A Clip",
+  },
+  {
+    name: "Travel To A Spot",
+  },
+  {
+    name: "Enter A Local Contest",
   },
   {
     name: "Go Shopping",
   },
   {
-    name: "Hit The Local",
+    name: "Hit The Training Facility",
   },
   {
     name: "Pass",

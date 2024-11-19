@@ -1,10 +1,11 @@
 import React from "react";
 import { cast, destroy, Instance, SnapshotOut, types } from "mobx-state-tree";
-import { Card, CardType, TrickCard, FeatureType } from "/types/cards";
+import { Card, CardType, TrickCard, GearCard, FeatureType } from "/types/cards";
 import { shuffle } from "lodash";
 import { useParams } from "react-router";
 import spots from "../data/spots.json";
 import trickData from "../data/tricks.json";
+import gearData from "../data/gear.json";
 import { Meteor } from "meteor/meteor";
 import { Game } from "../api/games/games";
 
@@ -32,11 +33,13 @@ const Spot = types.model("Spot", {
 
 const Trick = types.model("Trick", {
   name: types.string,
+  trickType: types.string,
   score: types.number,
 });
 
 const Gear = types.model({
-  name: types.string,
+  description: types.string,
+  price: types.string,
 });
 
 const Crew = types.model({
@@ -94,9 +97,11 @@ const SpotDeck = types
 
 const Player = types.model("Player", {
   _id: types.identifier,
+  gameId: types.string,
   name: types.string,
   score: types.number,
   hand: types.array(types.reference(PlayerCard)),
+  ready: false,
 });
 
 export interface IPlayer extends Instance<typeof Player> {}
@@ -135,14 +140,9 @@ export const GameStore = types
       Meteor.call("endGame", self.id);
       destroy(self);
     },
-    hydrateGame(game: Game) {
+    updateGame(game: Game) {
       self.hydrated = true;
       self.spots = cast(game.spots.map((s) => s.id));
-      self.players = game.players.map((p) => {
-        const hand = p.hand.map((c) => c.id);
-        const player = Player.create({ ...p, hand });
-        return player;
-      });
     },
   }));
 
@@ -180,6 +180,27 @@ export const GameStoreProvider = (props: React.PropsWithChildren) => {
           type: CardType.Trick,
           name: card.name,
           score: card.score,
+          trickType: card.type,
+        });
+      }
+    });
+
+    return cards;
+  }, []);
+
+  const gearCards = React.useMemo<GearCard[]>(() => {
+    const cards: GearCard[] = [];
+
+    gearData.cards.forEach((card, index) => {
+      const count = gearData.counts[card.name];
+
+      for (let i = 0; i < count; i++) {
+        cards.push({
+          id: index,
+          type: CardType.Gear,
+          name: card.name,
+          price: card.price,
+          description: card.description,
         });
       }
     });
@@ -189,7 +210,10 @@ export const GameStoreProvider = (props: React.PropsWithChildren) => {
 
   const store = React.useMemo(() => {
     const spotDeck = SpotDeck.create({ gameId, cards: spotCards });
-    const playerDeck = PlayerDeck.create({ gameId, cards: trickCards });
+    const playerDeck = PlayerDeck.create({
+      gameId,
+      cards: [...trickCards, ...gearCards],
+    });
 
     return GameStore.create({
       id: gameId,

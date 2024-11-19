@@ -1,6 +1,15 @@
 import { Meteor } from "meteor/meteor";
-import { GamesCollection, Player } from "../games";
-import { SpotCard } from "/types/cards";
+import { GamesCollection, PlayersCollection } from "../games";
+import { dealPlayerHand, PlayerDeck, shuffleDeck, SpotDeck } from "../../cards";
+import { SkaterCard } from "/types/cards";
+
+const newGame = () => {
+  const spotDeck = shuffleDeck(SpotDeck());
+  const playerDeck = shuffleDeck(PlayerDeck());
+  const spots = spotDeck.slice(0, 3);
+
+  return { spotDeck, playerDeck, spots };
+};
 
 export default Meteor.methods({
   async createGame() {
@@ -13,23 +22,27 @@ export default Meteor.methods({
 
     if (!username) throw new Meteor.Error("username-not-set");
 
-    const player: Player = {
-      _id: user._id,
-      name: username,
-      score: 0,
-      clips: [],
-      hand: [],
-    };
-
-    return GamesCollection.insertAsync({
+    const gameId = await GamesCollection.insertAsync({
       code: code,
       playerIds: [user._id],
-      players: [player],
       status: "waiting",
       createdAt: new Date(),
       host: user._id,
       spots: [],
     });
+
+    const playerId = await PlayersCollection.insertAsync({
+      userId: user._id,
+      gameId: gameId,
+      name: username,
+      score: 0,
+      clips: [],
+      hand: [],
+      ready: false,
+      skaterCard: null,
+    });
+
+    return { gameId, playerId };
   },
   async joinGame(code: string) {
     const userId = this.userId;
@@ -50,42 +63,94 @@ export default Meteor.methods({
 
     const user = await Meteor.users.findOneAsync({ _id: userId });
 
-    if (!user) {
+    if (!user || !user.username) {
       throw new Error("user-not-found");
     }
 
     if (!game.playerIds.includes(userId)) {
-      const player = {
-        _id: userId,
+      await PlayersCollection.insertAsync({
+        userId: user._id,
+        gameId: game._id,
         name: user.username,
         score: 0,
         clips: [],
         hand: [],
-      };
+        ready: false,
+        skaterCard: null,
+      });
 
       await GamesCollection.updateAsync(
         { _id: game._id },
-        { $push: { playerIds: userId, players: player } }
+        { $push: { playerIds: userId } }
       );
     }
 
     return game;
   },
-  async startGame(gameId: string, spots: SpotCard[]) {
+  async readyPlayer(gameId: string) {
     const userId = this.userId;
 
     if (!userId) {
       throw new Meteor.Error("not-authorized");
     }
 
+    const player = await PlayersCollection.findOneAsync({
+      userId: userId,
+      gameId: gameId,
+    });
+
+    if (!player) {
+      throw new Meteor.Error("player-not-found");
+    }
+
+    return PlayersCollection.updateAsync(
+      { userId: userId, gameId: gameId },
+      { $set: { ready: !player.ready } }
+    );
+  },
+  async playerSelectSkater(gameId: string, skaterCard: SkaterCard) {
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+    const player = await PlayersCollection.findOneAsync({
+      userId: userId,
+      gameId: gameId,
+    });
+
+    if (!player) {
+      throw new Meteor.Error("player-not-found");
+    }
+
+    return PlayersCollection.updateAsync(
+      { userId, gameId: gameId },
+      { $set: { skaterCard: skaterCard } }
+    );
+  },
+  async startGame(gameId: string) {
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+    const { spotDeck, playerDeck, spots } = newGame();
+
+    const players = await PlayersCollection.find({ gameId: gameId }).fetch();
+
+    players.forEach(async (player) => {
+      console.log({ player });
+
+      PlayersCollection.updateAsync(
+        { _id: player._id },
+        { $set: { hand: dealPlayerHand(playerDeck) } }
+      );
+    });
+
     const game = await GamesCollection.updateAsync(
       { _id: gameId, host: userId },
-      { $set: { status: "playing", spots: spots } }
+      { $set: { status: "playing", spotDeck, playerDeck, spots } }
     );
-
-    if (!game) {
-      throw new Meteor.Error("game-not-found");
-    }
 
     return game;
   },
@@ -114,9 +179,11 @@ export default Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
+    const { spotDeck, playerDeck, spots } = newGame();
+
     const game = await GamesCollection.updateAsync(
       { _id: gameId, host: userId },
-      { $set: { status: "waiting", spots: [] } }
+      { $set: { status: "waiting", spotDeck, playerDeck, spots } }
     );
 
     if (!game) {
@@ -139,9 +206,10 @@ export default Meteor.methods({
     }
 
     if (game.playerIds.includes(userId)) {
+      await PlayersCollection.removeAsync({ userId: userId, gameId: gameId });
       await GamesCollection.updateAsync(
         { _id: game._id },
-        { $pull: { playerIds: userId, players: { _id: userId } } }
+        { $pull: { playerIds: userId } }
       );
     }
 

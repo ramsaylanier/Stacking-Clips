@@ -16,6 +16,13 @@
     "difficulty": 9
   },
   {
+    "name": "Bay Blocks",
+    "features": [
+      "Ledge"
+    ],
+    "difficulty": 6
+  },
+  {
     "name": "Wallenberg",
     "features": [
       "Handrail",

@@ -2,9 +2,8 @@ import React from "react";
 import HStack from "../HStack";
 import VStack from "../VStack";
 import { SpotCard } from "/types/cards";
-import { ISpotCard } from "/imports/state/gameStore";
 
-interface SpotCardProps extends ISpotCard {}
+interface SpotCardProps extends SpotCard {}
 
 export default function SpotCard(props: SpotCardProps) {
   const imageUrl = `/images/spots/${props.name

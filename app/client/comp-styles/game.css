@@ -29,6 +29,9 @@
   background-color: white;
 }
 
+.player-info {
+}
+
 .player-name {
   padding: 0.25em 1.25em;
   background-color: var(--primaryLight);

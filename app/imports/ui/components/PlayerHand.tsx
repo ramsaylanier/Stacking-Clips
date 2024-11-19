@@ -9,8 +9,8 @@ interface PlayerHandProps {
 export default function PlayerHand(props: PlayerHandProps) {
   return (
     <HStack className="player-hand" gap=".25em">
-      {props.hand.map((card) => {
-        return <PlayerCard key={card.id} {...card} />;
+      {props.hand.map((card, index) => {
+        return <PlayerCard key={card.id + index} {...card} />;
       })}
     </HStack>
   );

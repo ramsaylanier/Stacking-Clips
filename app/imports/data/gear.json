@@ -1,0 +1,24 @@
+{
+  "counts": {
+    "Wax": 10,
+    "SqueeGee": 6,
+    "Fish Eye Lens": 4
+  },
+  "cards": [
+    {
+      "name": "Wax",
+      "price": "$10",
+      "description": "Decrease a Grind or Slide trick difficulty by 2."
+    },
+    {
+      "name": "SqueeGee",
+      "price": "$25",
+      "description": "Makes a wet spot dry."
+    },
+    {
+      "name": "Fish Eye Lens",
+      "price": "$50",
+      "description": "Doubles your style bonus on a clip."
+    }
+  ]
+}

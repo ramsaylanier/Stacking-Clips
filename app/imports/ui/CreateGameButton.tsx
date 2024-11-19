@@ -7,7 +7,7 @@ export default function CreateGameButton() {
 
   const handleClick = async () => {
     try {
-      const gameId = await Meteor.callAsync("createGame");
+      const { gameId, playerId } = await Meteor.callAsync("createGame");
       navigate(`/game/${gameId}`);
     } catch (err) {
       console.log({ err });

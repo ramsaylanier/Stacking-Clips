@@ -13,6 +13,7 @@ interface VStackProps extends React.PropsWithChildren {
   align?: "flex-start" | "center" | "flex-end" | "stretch";
   gap?: number | string;
   as?: React.ElementType;
+  onClick?: () => void;
 }
 
 export default function VStack(props: VStackProps) {
@@ -27,6 +28,7 @@ export default function VStack(props: VStackProps) {
         gap: props.gap,
         ...props.style,
       }}
+      onClick={props.onClick}
     >
       {props.children}
     </Component>
